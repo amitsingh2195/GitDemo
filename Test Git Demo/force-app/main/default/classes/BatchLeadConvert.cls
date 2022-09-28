@@ -19,6 +19,7 @@ public with sharing class BatchLeadConvert implements Database.Batchable<SObject
     }
 
     public void finish(Database.BatchableContext ctx){
+        //good job
 
     }
 }
