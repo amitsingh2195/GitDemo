@@ -1,0 +1,203 @@
+<aura:component controller="uploadBusinessDocuments" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:availableForFlowScreens" access="global" >  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    <aura:attribute name="files" type="ContentDocument[]"/>  
+    <aura:attribute name="recordId" type="string"/>  
+    <aura:attribute name="accept" type="List" default="['.jpg', '.jpeg','.pdf','.csv','.xlsx']"/>  
+    <aura:attribute name="multiple" type="Boolean" default="true"/>  
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    <aura:attribute name="showDelete" type="Boolean" default="true"/>
+    <aura:attribute name="form940" type="Boolean" default="false"/>
+    <aura:attribute name="form941" type="Boolean" default="false"/>
+    <aura:attribute name="regDoc" type="Boolean" default="false"/>
+    <aura:attribute name="articleOfIncorporation" type="Boolean" default="false"/>
+    <aura:attribute name="checkValidity" type="Boolean" default="false"/>
+    <aura:handler name="change" value="{!v.checkValidity}" action="{!c.checkValidityJs}" />
+    <aura:attribute name="isValidated" type="Boolean" default="false"/>
+    <aura:attribute name="businessType" type="string"/>  
+    <aura:attribute name="DBAName" type="string"/>  
+    
+    <div class="slds">  
+        <div style="border-left: 1px solid rgb(221, 219, 218);  
+                    border-right: 1px solid rgb(221, 219, 218);  
+                    border-bottom: 1px solid rgb(221, 219, 218);  
+                    border-top: 1px solid rgb(221, 219, 218);
+                    PADDING: 4PX;">  
+            <!--<div class="slds-page-header" style="border-radius: 0px; border-right: 0px;border-left: 0px;border-top: 0px;  
+                                                 box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);">  
+                Files  
+            </div>  -->
+            <div class="slds-grid">  
+                <div class="slds-col slds-size--5-of-12">  
+                    <aura:if isTrue="{!v.businessType == 'Sole Proprietor'}">
+                        <lightning:select aura:id ="fileName" label="Select File Type">
+                            <option value="">Select Option</option>
+                            <option value="TAX_940">IRS Form 940 for 2019</option>
+                            <option value="TAX_941">IRS From 941 for the 1st Quarter of 2020</option>
+                            <option value="Payroll Document">Payroll document</option>
+                            <aura:if isTrue="{!v.DBAName}">
+                            <option value="CERTIFICATE OF FORMATION">Registration document </option>
+                            </aura:if>
+                            
+                        </lightning:select>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!v.businessType == 'Independent Contractor'}">
+                        <lightning:select aura:id ="fileName" label="Select File Type">
+                            <option value="">Select Option</option>
+                            <option value="TAX_940">IRS Form 940 for 2019</option>
+                            <option value="TAX_941">IRS From 941 for the 1st Quarter of 2020</option>
+                            <option value="Payroll Document">Payroll document</option>
+                            <aura:if isTrue="{!v.DBAName}">
+                            <option value="CERTIFICATE OF FORMATION ">Registration document </option>
+                            </aura:if>
+                        </lightning:select>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!v.businessType == 'Eligible Self-Employed individual'}">
+                        <lightning:select aura:id ="fileName" label="Select File Type">
+                            <option value="">Select Option</option>
+                            <option value="TAX_940">IRS Form 940 for 2019</option>
+                            <option value="TAX_941">IRS From 941 for the 1st Quarter of 2020</option>
+                            <option value="Payroll Document">Payroll document</option>
+                            <aura:if isTrue="{!v.DBAName}">
+                            <option value="CERTIFICATE OF FORMATION ">Registration document </option>
+                            </aura:if>
+                        </lightning:select>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!v.businessType == 'Cooperative'}">
+                        <lightning:select aura:id ="fileName" label="Select File Type">
+                            <option value="">Select Option</option>
+                            <option value="TAX_940">IRS Form 940 for 2019</option>
+                            <option value="TAX_941">IRS From 941 for the 1st Quarter of 2020</option>
+                            <option value="Payroll Document">Payroll document</option>
+                            <option value="ARTICLES OF INCORPORATION">Article of Incorporation</option>
+                            <aura:if isTrue="{!v.DBAName}">
+                                <option value="CERTIFICATE OF FORMATION ">Registration document </option>
+                            </aura:if>
+                        </lightning:select>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!v.businessType == 'S-Corp'}">
+                        <lightning:select aura:id ="fileName" label="Select File Type">
+                            <option value="">Select Option</option>
+                            <option value="TAX_940">IRS Form 940 for 2019</option>
+                            <option value="TAX_941">IRS From 941 for the 1st Quarter of 2020</option>
+                            <option value="Payroll Document">Payroll document</option>
+                            <option value="ARTICLES OF INCORPORATION">Article of Incorporation</option>
+                            <aura:if isTrue="{!v.DBAName}">
+                                <option value="CERTIFICATE OF FORMATION ">Registration document </option>
+                            </aura:if>
+                        </lightning:select>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!v.businessType == 'LLC'}">
+                        <lightning:select aura:id ="fileName" label="Select File Type">
+                            <option value="">Select Option</option>
+                            <option value="TAX_940">IRS Form 940 for 2019</option>
+                            <option value="TAX_941">IRS From 941 for the 1st Quarter of 2020</option>
+                            <option value="Payroll Document">Payroll document</option>
+                            <option value="ARTICLES OF INCORPORATION">Article of Incorporation</option>
+                            <aura:if isTrue="{!v.DBAName}">
+                                <option value="CERTIFICATE OF FORMATION ">Registration document </option>
+                            </aura:if>
+                        </lightning:select>
+                    </aura:if>
+                    
+                    <!--<lightning:input type="text" name="input1" label="Enter File Name" aura:id="fileName" /> --> 
+                </div>&nbsp; &nbsp;  
+                <div class="slds-col slds-size---of-12">  
+                    <lightning:fileUpload label="" multiple="{!v.multiple}"   
+                                          accept="{!v.accept}" recordId="{!v.recordId}"   
+                                          onuploadfinished="{!c.UploadFinished}" />  
+                </div>  
+            </div><br/>  
+            <table class="slds-table slds-table--bordered">  
+                <thead>  
+                    <tr>  
+                        <th>Title</th>  
+                        <th>FileType</th>  
+                        <aura:if isTrue="{!v.showDelete}">
+                            <th class="" scope="col">
+                                <div class="slds-truncate"></div>
+                            </th>
+                        </aura:if>
+                    </tr>  
+                </thead>  
+                <tbody>  
+                    <aura:iteration items="{!v.files}" var="f" indexVar="index">  
+                        <tr>  
+                            <td> <a href="" id="{!f.Id}" onclick="{!c.OpenFile}">{!f.Title}</a></td>  
+                            <td>{!f.FileType}</td>  
+                            <aura:if isTrue="{!v.showDelete}">
+                                <th scope="col" style="text-align: center;">
+                                    <div onclick="{!c.removeAttachment}" data-value="{!index}" style="width:24px;">
+                                        <lightning:icon class="participant-delete-icon" iconName="utility:delete" alternativeText="Delete" size="small" title="Record Delete" variant="error"/>
+                                    </div>
+                                </th>
+                            </aura:if>
+                        </tr>  
+                    </aura:iteration>  
+                </tbody>  
+            </table> 
+            
+            
+            <div>
+                <div class="slds-page-header" style="border-radius: 0px; border-right: 0px;border-left: 0px;border-top: 0px;  
+                                                     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);">  
+                    Required Documents  
+                </div>  
+                <div>
+                    <aura:if isTrue="{!v.businessType == 'Sole Proprietor'}">
+                        <lightning:input aura:id="tax940" type="checkbox" disabled="true" name="tax940" checked="{! v.form940}" label="IRS Form 940 for 2019"/>                
+                        <lightning:input aura:id="tax942" type="checkbox" disabled="true" name="tax940" checked="{! v.form941}" label="IRS From 941 for the 1st Quarter of 2020"/>                
+                        <aura:if isTrue="{!v.DBAName}">
+                        <lightning:input aura:id="regDoc" type="checkbox" disabled="true" name="regDoc" checked="{! v.regDoc}" label="Registration Document"/>                
+                        </aura:if>
+                    </aura:if>
+                    <aura:if isTrue="{!v.businessType == 'Independent Contractor'}">
+                        <lightning:input aura:id="tax940" type="checkbox" disabled="true" name="tax940" checked="{! v.form940}" label="IRS Form 940 for 2019"/>                
+                        <lightning:input aura:id="tax942" type="checkbox" disabled="true" name="tax940" checked="{! v.form941}" label="IRS From 941 for the 1st Quarter of 2020"/>                
+                        <aura:if isTrue="{!v.DBAName}">
+                        <lightning:input aura:id="regDoc" type="checkbox" disabled="true" name="regDoc" checked="{! v.regDoc}" label="Registration Document"/>                
+                        </aura:if>                    
+                    </aura:if>
+                    <aura:if isTrue="{!v.businessType == 'Eligible Self-Employed individual'}">
+                        <lightning:input aura:id="tax940" type="checkbox" disabled="true" name="tax940" checked="{! v.form940}" label="IRS Form 940 for 2019"/>                
+                        <lightning:input aura:id="tax942" type="checkbox" disabled="true" name="tax940" checked="{! v.form941}" label="IRS From 941 for the 1st Quarter of 2020"/>                
+                        <aura:if isTrue="{!v.DBAName}">
+                        <lightning:input aura:id="regDoc" type="checkbox" disabled="true" name="regDoc" checked="{! v.regDoc}" label="Registration Document"/>                
+                        </aura:if>
+                    </aura:if>
+                    <aura:if isTrue="{!v.businessType == 'Cooperative'}">
+                        <lightning:input aura:id="tax940" type="checkbox" disabled="true" name="tax940" checked="{! v.form940}" label="IRS Form 940 for 2019"/>                
+                        <lightning:input aura:id="tax942" type="checkbox" disabled="true" name="tax940" checked="{! v.form941}" label="IRS From 941 for the 1st Quarter of 2020"/>                
+                        <lightning:input aura:id="articleOfInc" type="checkbox" disabled="true" name="articleOfInc" checked="{! v.articleOfIncorporation}" label="Article Of Incorporation"/>                
+                        <aura:if isTrue="{!v.DBAName}">
+                        <lightning:input aura:id="regDoc" type="checkbox" disabled="true" name="regDoc" checked="{! v.regDoc}" label="Registration Document"/>                
+                        </aura:if>
+                    </aura:if>
+                    <aura:if isTrue="{!v.businessType == 'S-Corp'}">
+                        <lightning:input aura:id="tax940" type="checkbox" disabled="true" name="tax940" checked="{! v.form940}" label="IRS Form 940 for 2019"/>                
+                        <lightning:input aura:id="tax942" type="checkbox" disabled="true" name="tax940" checked="{! v.form941}" label="IRS From 941 for the 1st Quarter of 2020"/>                
+                        <lightning:input aura:id="articleOfInc" type="checkbox" disabled="true" name="articleOfInc" checked="{! v.articleOfIncorporation}" label="Article Of Incorporation"/>                
+                        <aura:if isTrue="{!v.DBAName}">
+                        <lightning:input aura:id="regDoc" type="checkbox" disabled="true" name="regDoc" checked="{! v.regDoc}" label="Registration Document"/>                
+                        </aura:if>
+                    </aura:if>
+                    <aura:if isTrue="{!v.businessType == 'LLC'}">
+                        <lightning:input aura:id="tax940" type="checkbox" disabled="true" name="tax940" checked="{! v.form940}" label="IRS Form 940 for 2019"/>                
+                        <lightning:input aura:id="tax942" type="checkbox" disabled="true" name="tax940" checked="{! v.form941}" label="IRS From 941 for the 1st Quarter of 2020"/>                
+                        <lightning:input aura:id="articleOfInc" type="checkbox" disabled="true" name="articleOfInc" checked="{! v.articleOfIncorporation}" label="Article Of Incorporation"/>                
+                        <aura:if isTrue="{!v.DBAName}">
+                        <lightning:input aura:id="regDoc" type="checkbox" disabled="true" name="regDoc" checked="{! v.regDoc}" label="Registration Document"/>                
+                        </aura:if>
+                    </aura:if>
+                </div>
+                
+            </div>
+            
+            
+        </div>  
+    </div>  
+</aura:component>

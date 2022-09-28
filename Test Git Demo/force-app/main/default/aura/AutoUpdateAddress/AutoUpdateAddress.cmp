@@ -1,0 +1,70 @@
+<aura:component controller="googleAddressAutofill" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global">
+    <aura:attribute name="location" type="string" default="" />
+    <aura:attribute name="predictions" type="List" default="[]" />
+    <aura:attribute name="city" type="string" default="" />
+    <aura:attribute name="country" type="string" default="" />
+    <aura:attribute name="state" type="string" default="" />
+    <aura:attribute name="street" type="string" default="" />
+    <aura:attribute name="zip" type="string" default="" />
+    <aura:attribute name="boolean" type="boolean" default="false" />
+    <aura:attribute name="accountRecord" type="Account"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!--  <aura:if isTrue="{!v.boolean}">  -->
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title="address">
+                            <lightning:icon iconName="standard:address" alternativeText="address" />
+                            <span class="slds-assistive-text">Address</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                                <span>Address</span>
+                            </a>
+                        </h2>
+                </div>
+                <!--<div class="slds-no-flex">
+                    <lightning:button class="button" variant="brand" label="Save Address" title="Brand action" onclick="{! c.handleClick }" />
+                </div>-->
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+
+            <lightning:input required="true" label="Business Address Line 1" name="location" aura:id="location" value="{!v.accountRecord.BillingStreet}" onchange="{!c.getCities}" placeholder="Enter address here" />
+
+            <aura:if isTrue="{!v.predictions.length > 0}">
+                <ul class="city_predictions">
+                    <aura:iteration items="{!v.predictions}" var="prediction">
+                        <li class="slds-listbox__item">
+                            <a onclick="{!c.getCityDetails}" data-placeid="{!prediction.place_id}">{!prediction.description}</a>
+                        </li>
+                    </aura:iteration>
+                </ul>
+            </aura:if>
+            
+            <!--<lightning:input label="Address Line 1" name="add1" aura:id="add1" value="{! v.accountRecord.BillingStreet}" />-->
+            
+            <lightning:input label="Business Address Line 2" name="add2" aura:id="add2" value="{! v.accountRecord.Address_2__c}" maxlength="40"/>
+            
+            <lightning:input required="true" label="Business City" name="city" aura:id="city" value="{! v.accountRecord.BillingCity}" maxlength="40"/>
+
+            <lightning:input required="true" label="Business State" name="state" aura:id="state" value="{! v.accountRecord.BillingState}" maxlength="25"/>
+
+            <!--<lightning:input required="true" label="Business Country" name="country" aura:id="country" value="{!v.accountRecord.BillingCountry}" />-->
+
+            <lightning:input required="true" label="Business Zip Code" name="zip" aura:id="zip" value="{! v.accountRecord.BillingPostalCode}" maxlength="5"/>
+             
+            <lightning:input required="false" label="Additional Business Zip Code" name="Additional zip" aura:id="Additionalzip" value="{! v.accountRecord.Additional_Zip_Code__c}" maxlength="4" />
+              
+            
+        
+        </div>
+
+    </article>
+    <!--   </aura:if>  -->
+</aura:component>

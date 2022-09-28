@@ -1,0 +1,24 @@
+<apex:page >
+    <apex:includeLightning rendered="true"/>
+        <apex:pageBlock title="M-Preamble">            
+            <apex:tabPanel >            
+                <apex:tab label="Home">                
+                    <!--<c:UserTabDataComponent ></c:UserTabDataComponent>-->
+                    <iframe src="https://ap4.salesforce.com/01Z6F000000Nz8u" scrolling="true" id="theIframe"/>
+                </apex:tab>
+                <apex:tab label="User">
+                    <c:MPreamble_FailedUserLoginComponent ></c:MPreamble_FailedUserLoginComponent>
+                    <c:MPreamble_UserLicensesComponent ></c:MPreamble_UserLicensesComponent>
+                </apex:tab>
+                <apex:tab label="Governer">
+                    Welcome to GOVERNER page!
+                </apex:tab>
+                <apex:tab label="Object">
+                    Welcome to OBJECT page!
+                </apex:tab>
+                <apex:tab label="OrgLevel">
+                    Welcome to ORG-LEVEL page!
+                </apex:tab>         
+            </apex:tabPanel>
+        </apex:pageBlock>
+</apex:page>

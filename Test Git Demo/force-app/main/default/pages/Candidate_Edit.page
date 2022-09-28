@@ -1,0 +1,48 @@
+<apex:page standardController="Candidate__c">
+    <apex:sectionHeader title="Candidate Edit" subtitle="New Capex Member"/>
+    <apex:image value="http://bit.ly/17iLknp" styleClass="logo" />
+    
+    <apex:form >
+        <apex:pageBlock title="Rules of Capex" mode="edit">
+            <apex:outputPanel styleClass="rules">
+                1st rule : Dont talk<br/>
+                2nd rule : only work<br/>
+                3rd rule : never give up<br/>
+                
+                <iframe width = "320" height="180" src="https://www.youtube.com/embed/"></iframe>            
+            </apex:outputPanel>
+            
+            <apex:pageBlockSection columns="3" showHeader="true" title="Membership Status">
+                <apex:inputField value="{!Candidate__c.First_Name__c}" required="true"/>
+                <apex:inputField value="{!Candidate__c.Last_Name__c}" required="true"/>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Referrer</apex:outputLabel>
+                    <apex:inputField value="{!Candidate__c.Current_Employer__c}"/>               
+                </apex:pageBlockSectionItem>            
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Add Capex Member" action="{!save}"/>
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>
+    </apex:form>
+    <style>
+        .logo{
+        float: right;
+        width: 60px;
+        margin: -65px 20px 0 0;
+        }  
+        
+        .rules{
+        color: red;
+        font-size: 18px;
+        font-family: Courier;
+        margin: 10px 0 10px 30px;
+        float: left;
+        width: 100;
+        }
+    </style>
+    
+    
+</apex:page>

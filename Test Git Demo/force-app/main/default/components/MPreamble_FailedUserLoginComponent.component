@@ -1,0 +1,8 @@
+<apex:component controller="MPreamble_FailedUserLoginController">
+    <apex:pageBlock title="Failed Login Count">
+        <apex:pageBlockTable value="{!FailedCount}" var="f">
+            <apex:column value="{!f.User_Name__c}"/>
+            <apex:column value="{!f.Failed_Login_Count__c}"/>                  
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:component>

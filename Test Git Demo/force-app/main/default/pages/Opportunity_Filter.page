@@ -1,0 +1,26 @@
+<apex:page standardController="Opportunity" recordSetVar="Opportunities">
+    <apex:form >
+        <apex:pageBlock title="Displaying Opportunities">
+            <!--Below <ape:selectList> tag is used to display listview -->
+            <apex:selectList size="2" value="{!filterId}">
+                <apex:actionSupport event="onchange" reRender="oppList"/>
+                <apex:selectOptions value="{!listviewoptions}"></apex:selectOptions>            
+            </apex:selectList>
+            
+            <apex:pageBlockTable value="{!opportunities}" var="opp" id="oppList">
+                <apex:column value="{!opp.Name}"/>
+                <apex:column value="{!opp.Account.Name}"/>
+                <apex:column value="{!opp.StageName}"/>
+                <apex:column value="{!opp.Type}"/>
+                <apex:column value="{!opp.ExpectedRevenue}"/>                        
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockButtons location="Bottom">
+                <apex:commandLink value="First" action="{!First}"/> &nbsp;
+                <apex:commandLink value="Next" action="{!Next}"/> &nbsp;
+                <apex:commandLink value="Previous" action="{!Previous}"/> &nbsp;
+                <apex:commandLink value="Last" action="{!Last}"/>            
+            </apex:pageBlockButtons>        
+        </apex:pageBlock>  
+    </apex:form>    
+</apex:page>

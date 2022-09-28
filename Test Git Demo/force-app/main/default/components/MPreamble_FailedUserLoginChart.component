@@ -1,0 +1,35 @@
+<apex:component Controller="MPreamble_FailedUserLogin" >
+    <apex:form >
+        <apex:pageBlock title="Failed Login Count Per User">
+        <apex:includeScript value="{!URLFOR($Resource.ChartJs, 'dist/Chart.js')}"/>
+        <body>
+            <div style="width: 50%">
+                <canvas id="canvas2"  ></canvas>
+            </div>
+        <script>
+            var barChartData2 = 
+          {
+                labels : {!name2},
+                datasets : 
+                [
+                    {
+                        fillColor : "rgba(0,128,205,0.5)",
+                        strokeColor : "rgba(0,128,205,0.8)",
+                        highlightFill : "rgba(0,128,205,0.75)",
+                        highlightStroke : "rgba(0,128,205,1)",
+                        data : {!count} 
+                    }
+                ]
+        
+            }
+            window.onload = function(){
+                var ctx2 = document.getElementById("canvas2").getContext("2d");
+                window.myBar = new Chart(ctx2).Bar(barChartData2, {
+                    responsive : true
+                });
+            }
+        </script>
+        </body>
+        </apex:pageBlock>
+        </apex:form>
+</apex:component>

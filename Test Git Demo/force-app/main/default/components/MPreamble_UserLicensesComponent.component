@@ -1,0 +1,12 @@
+<apex:component controller="MPreamble_UserLicenseController">
+    <apex:pageBlock title="User Licenses">
+        <apex:pageBlockTable value="{!licenses}" var="l">
+            <apex:column value="{!l.Salesforce_License_Name__c}"/>
+            <apex:column value="{!l.Salesforce_Used_Licenses__c}"/>          
+            <apex:column value="{!l.Salesforce_Total_Licenses__c}"/>
+            <apex:column value="{!l.Salesforce_Remaining_Licenses__c}"/>
+        
+        </apex:pageBlockTable>
+
+    </apex:pageBlock>
+</apex:component>

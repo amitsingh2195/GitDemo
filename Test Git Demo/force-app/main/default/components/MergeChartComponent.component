@@ -1,0 +1,4 @@
+<apex:component >
+    <c:MPreamble_UserLicensesChart ></c:MPreamble_UserLicensesChart>
+    <c:MPreamble_FailedUserLoginChart ></c:MPreamble_FailedUserLoginChart>
+</apex:component>
